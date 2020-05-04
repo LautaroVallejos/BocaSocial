@@ -8,7 +8,7 @@ const config = require('../config');
 
 const User = require('../models/User');
 
-router.post('/', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     res.json({
         "hola":"hola"
     });
