@@ -10,7 +10,7 @@ const User = require('../models/User');
 
 router.post('/', async (req, res, next) => {
     res.json({
-        hola:"hola"
+        "hola":"hola"
     });
 })
 
