@@ -9,7 +9,9 @@ const config = require('../config');
 const User = require('../models/User');
 
 router.get('/', async (req, res, next) => {
-    res.send("hola!");
+    res.json({
+        hola:"hola"
+    });
 })
 
 router.post('/signup', async (req, res, next) => {
