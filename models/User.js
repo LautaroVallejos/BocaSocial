@@ -20,7 +20,8 @@ const userSchema = new Schema({
     locate: String, //Geolocalizacion       --valizacion y macheo con la anterior localizacion optenida
     latestLocate: String, //Ultima localizacion
     entryApp: String, //Primera vez que se uso el sitio   --inmutable
-    groups: Object //Json que alverga a todos los grupos a los que esta unido --agregar, modificar y eliminar de grupos
+    groups: Object, //Json que alverga a todos los grupos a los que esta unido --agregar, modificar y eliminar de grupos
+    points: Number //Cantidad de puntos que tiene el usuario --agregar y sacar puntos
 });
 
 //Encripado de la password
@@ -113,4 +114,15 @@ userSchema.method.modifyGroup = function () {
 userSchema.method.removeGroup = function () {
 
 }
+
+//Agrega puntos a el usuario
+userSchema.method.addPoints = function (quantity) {
+
+}
+
+//Saca punto a el usuario
+userSchema.method.removePoints = function (quantity) {
+
+}
+
 module.exports = model('User', userSchema);
