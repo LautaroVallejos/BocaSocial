@@ -40,6 +40,7 @@ router.post('/signup', async (req, res, next) => {
             token: token
         });
     } catch (e) {
+        console.log(e);
         res.status(401).json({
             auth: false,
             message: 'general error',
@@ -58,7 +59,10 @@ router.post('/signin', async (req, res, next) => {
             email: email
         })
         if (!user) {
-            return res.status(404).send('no existe')
+            return res.status(401).json({
+                auth: false,
+                token: null
+            })
         }
 
         const passwordIsValid = await user.validatePassword(password);
@@ -79,7 +83,8 @@ router.post('/signin', async (req, res, next) => {
             'x-access-token': token
         })
         res.end(JSON.stringify({
-            auth:true
+            auth:true,
+            error:false
         }));
     } catch (e) {
         console.log(e)
