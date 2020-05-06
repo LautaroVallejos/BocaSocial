@@ -64,7 +64,7 @@ router.post('/signin', async (req, res, next) => {
                 token: null
             })
         }
-
+        
         const passwordIsValid = await user.validatePassword(password);
 
         if (!passwordIsValid) {

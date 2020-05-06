@@ -57,6 +57,7 @@ userSchema.methods.encryptPassword = async (password) => {
 
 //Desencriptado para verificacion
 userSchema.methods.validatePassword = function (password) {
+    console.log(password, this.password);
     return bcrypt.compare(password, this.password);
 };
 
