@@ -16,8 +16,7 @@ const userSchema = new Schema({
     }, //Email de use  --valicacion de ocupacion, si cumple los minimos y validacion 
     isValidEmail: Boolean, //Si el a sido confirmado --validad enviando un email al correspondiente
     password: {
-        type: String,
-        select: false
+        type: String
     }, //Contraseña encriptada --encriptado y desencriptado
     avatar: String, //Nombre del archivo usado como avatar --hacer funcion creadora del archivo y destructora
     phone: String, //Numero de telefono    --validacion optativa
