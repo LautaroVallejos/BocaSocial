@@ -9,9 +9,12 @@ const config = require('../config');
 const User = require('../models/User');
 
 router.get('/', async (req, res, next) => {
-    res.json({
-        "hola":"hola"
-    });
+    res.end(JSON.stringify({
+        auth: false,
+        token: null,
+        error: false,
+        message: 'Apis online'
+    }));
 })
 
 router.post('/signup', async (req, res, next) => {
@@ -35,17 +38,24 @@ router.post('/signup', async (req, res, next) => {
             expiresIn: 60 * 60 * 24
         })
 
-        res.json({
+        res.writeHead(200, {
+            'x-access-token': token
+        })
+        res.end(JSON.stringify({
             auth: true,
-            token: token
-        });
+            token: token,
+            error: false,
+            message: "User resgistered"
+        }));
+
     } catch (e) {
         console.log(e);
-        res.status(401).json({
+        res.status(401).res.end(JSON.stringify({
             auth: false,
-            message: 'general error',
-            error: true
-        })
+            token: null,
+            error: true,
+            message: 'general error'
+        }))
     }
 })
 
@@ -59,19 +69,23 @@ router.post('/signin', async (req, res, next) => {
             email: email
         })
         if (!user) {
-            return res.status(401).json({
+            return res.status(401).res.end(JSON.stringify({
                 auth: false,
-                token: null
-            })
+                token: null,
+                error: true,
+                mensagge: "user not found"
+            }))
         }
         
         const passwordIsValid = await user.validatePassword(password);
 
         if (!passwordIsValid) {
-            return res.status(401).json({
+            return res.status(401).res.end(JSON.stringify({
                 auth: false,
-                token: null
-            })
+                token: null,
+                error: true,
+                message: 'general error'
+            }))
         }
 
         const token = jwt.sign({
@@ -84,27 +98,30 @@ router.post('/signin', async (req, res, next) => {
         })
         res.end(JSON.stringify({
             auth:true,
-            error:false
+            token: token,
+            error:false, 
+            message:"User is login"
         }));
     } catch (e) {
-        console.log(e)
-        res.json({
+        res.end(JSON.stringify({
             auth: false,
-            message: 'general error',
-            error: true
-        })
+            token: null,
+            error: true,
+            message: 'general error'
+        }));
     }
 })
 
-router.get('/me', async (req, res, next) => {
+router.post('/me', async (req, res, next) => {
     try {
         const token = req.headers['x-access-token'];
         if (!token) {
-            return res.status(401).json({
+            return res.status(401).end(JSON.stringify({
                 auth: false,
-                message: 'no token provided',
-                error: true
-            })
+                token: null,
+                error: true,
+                message: 'no token provided'
+            }))
         }
 
         const decoded = jwt.verify(token, config.secret);
@@ -113,15 +130,26 @@ router.get('/me', async (req, res, next) => {
             password: 0
         });
         if (!user) {
-            return res.status(404).send('no user found')
+            return res.status(404).end(JSON.stringify({
+                auth: false,
+                token: null,
+                error: true,
+                message: 'general error'
+            }));
         }
-        res.json(user);
+        res.end(JSON.stringify({
+            auth: true,
+            token: token,
+            error: false,
+            message: 'Is passaged'
+        }));;
     } catch (e) {
-        res.status(401).json({
+        res.end(JSON.stringify({
             auth: false,
-            message: 'general error',
-            error: true
-        })
+            token: null,
+            error: true,
+            message: 'general error'
+        }));
     }
 })
 
