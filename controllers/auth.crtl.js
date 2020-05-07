@@ -50,7 +50,7 @@ router.post('/signup', async (req, res, next) => {
 
     } catch (e) {
         console.log(e);
-        res.status(401).res.end(JSON.stringify({
+        res.status(401).end(JSON.stringify({
             auth: false,
             token: null,
             error: true,
