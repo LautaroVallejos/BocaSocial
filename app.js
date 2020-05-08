@@ -7,4 +7,5 @@ app.use(express.urlencoded({
 }));
 
 app.use(require('./controllers/auth.crtl'));
+app.use(require('./controllers/points.ctrl'));
 module.exports = app;

@@ -196,14 +196,4 @@ userSchema.methods.removeGroup = function () {
 
 }
 
-//Agrega puntos a el usuario
-userSchema.methods.addPoints = function (quantity) {
-    this.points = +quantity;
-}
-
-//Saca punto a el usuario
-userSchema.methods.removePoints = function (quantity) {
-    this.points = +quantity
-}
-
 module.exports = model('User', userSchema);
