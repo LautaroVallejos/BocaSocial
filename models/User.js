@@ -128,7 +128,7 @@ userSchema.methods.assignmentLicense = function (licenseType) {
 };
 
 //Como se paga el servicio --G gratis, T tarjeta, C trato comercial y A admin
-userSchema.method.assignmentPayment = function (paymentType) {
+userSchema.methods.assignmentPayment = function (paymentType) {
     switch (paymentType) {
         case "G":
         case "g":
@@ -156,48 +156,47 @@ userSchema.method.assignmentPayment = function (paymentType) {
 };
 
 //Ultimo pago realizado en tal fecha
-userSchema.method.assignmentPaymentLatest = function () {
+userSchema.methods.assignmentPaymentLatest = function () {
     this.paymentLatest = Date.now();
 }
 
 //Asigna poderes de admin 
-userSchema.method.addAdmin = function () {
+userSchema.methods.addAdmin = function () {
     this.isSuperUser = true;
 }
 
 //Quita poderes de admin
-userSchema.method.removeAdmin = function () {
+userSchema.methods.removeAdmin = function () {
     this.isSuperUser = false;
 }
 
 //Obtiene y guarda la lozalizacion passager req.ip :)
-userSchema.method.getLocation = function (ip) {
-    this.latestLocate = this.locate || '';
-    this.locate = geoip.lookup(ip);
+userSchema.methods.getLocation = function (ip) {
+    return geoip.lookup(ip);
 }
 
 //Agrega al usuario a un grupo y se le otorga el nivel en este grupo
-userSchema.method.addGroup = function () {
+userSchema.methods.addGroup = function () {
 
 }
 
 //Cambia el nivel en un grupo
-userSchema.method.modifyGroup = function () {
+userSchema.methods.modifyGroup = function () {
 
 }
 
 //Elimina a un usuario de un grupo
-userSchema.method.removeGroup = function () {
+userSchema.methods.removeGroup = function () {
 
 }
 
 //Agrega puntos a el usuario
-userSchema.method.addPoints = function (quantity) {
+userSchema.methods.addPoints = function (quantity) {
     this.points = +quantity;
 }
 
 //Saca punto a el usuario
-userSchema.method.removePoints = function (quantity) {
+userSchema.methods.removePoints = function (quantity) {
     this.points = +quantity
 }
 

@@ -88,8 +88,9 @@ router.post('/signin', async (req, res, next) => {
                 message: 'general error'
             }))
         }
-
-        await user.getLocation(res.ip);
+        
+        user.latestLocate = user.locate;
+        user.locate = await user.getLocation(res.ip);
         await user.save();
 
         const token = jwt.sign({
