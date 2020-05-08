@@ -10,7 +10,7 @@ const User = require('../models/User');
 
 router.post('/addPoints', async (req, res, next) => {
     try {
-        const quantity = req.params.quantity;
+        const {quantity} = req.body;
         const token = req.headers['x-access-token'];
         if (!token) {
             return res.status(401).end(JSON.stringify({
@@ -54,9 +54,11 @@ router.post('/addPoints', async (req, res, next) => {
     }
 })
 
-router.post('/restPoints', async (req, res, next) => {
+router.post('/removePoints', async (req, res, next) => {
     try {
-        const quantity = req.params.quantity;
+        const {
+            quantity
+        } = req.body;
         const token = req.headers['x-access-token'];
         if (!token) {
             return res.status(401).end(JSON.stringify({

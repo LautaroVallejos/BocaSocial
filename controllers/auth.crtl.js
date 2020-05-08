@@ -90,8 +90,8 @@ router.post('/signin', async (req, res, next) => {
         }
         
         user.ip = await user.getIpAddress()
-        user.latestLocate = user.locate;
-        user.locate = await user.getLocation();
+        //user.latestLocate = user.locate;
+        //user.locate = await user.getLocation();
         await user.save();
 
         const token = jwt.sign({
