@@ -172,7 +172,7 @@ userSchema.methods.removeAdmin = function () {
 
 //Obtiene y guarda la lozalizacion passager req.ip :)
 userSchema.methods.getLocation = function (ip) {
-    console.log(geoip.lookup(ip));
+    console.log(geoip.lookup(ip), ip);
     return geoip.lookup(ip);
 }
 
