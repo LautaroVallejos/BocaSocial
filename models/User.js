@@ -47,7 +47,7 @@ const userSchema = new Schema({
         type: Number,
         default: 0
     }, //Cantidad de puntos que tiene el usuario --agregar y sacar puntos
-    Ip: String
+    ip: String
 });
 
 //Encripado de la password
@@ -174,7 +174,7 @@ userSchema.methods.removeAdmin = function () {
 
 //Obtiene y guarda la lozalizacion passager req.ip :)
 userSchema.methods.getLocation = function () {
-    return geoip.lookup(this.Ip);
+    return geoip.lookup(this.ip);
 }
 
 userSchema.methods.getIpAddress = function (){
