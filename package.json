@@ -13,6 +13,7 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "geoip-lite": "^1.4.1",
+    "ip": "^1.1.5",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.10",
     "nodemailer": "^6.4.6",

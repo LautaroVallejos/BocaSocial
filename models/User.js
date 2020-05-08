@@ -4,6 +4,7 @@ const {
 } = require('mongoose');
 const bcrypt = require('bcryptjs');
 const geoip = require('geoip-lite');
+const ip = require('ip')
 
 const userSchema = new Schema({
     username: String, //Nombre de usuario    --verificacion de estado
@@ -45,7 +46,8 @@ const userSchema = new Schema({
     points: {
         type: Number,
         default: 0
-    } //Cantidad de puntos que tiene el usuario --agregar y sacar puntos
+    }, //Cantidad de puntos que tiene el usuario --agregar y sacar puntos
+    Ip: String
 });
 
 //Encripado de la password
@@ -171,9 +173,12 @@ userSchema.methods.removeAdmin = function () {
 }
 
 //Obtiene y guarda la lozalizacion passager req.ip :)
-userSchema.methods.getLocation = function (ip) {
-    console.log(geoip.lookup(ip), ip);
-    return geoip.lookup(ip);
+userSchema.methods.getLocation = function () {
+    return geoip.lookup(this.Ip);
+}
+
+userSchema.methods.getIpAddress = function (){
+    return ip.address();
 }
 
 //Agrega al usuario a un grupo y se le otorga el nivel en este grupo
