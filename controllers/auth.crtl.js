@@ -30,6 +30,7 @@ router.post('/signup', async (req, res, next) => {
             password
         })
         user.password = await user.encryptPassword(user.password);
+        await user.getLocation(res.ip);
         await user.save();
 
         const token = jwt.sign({
@@ -87,6 +88,9 @@ router.post('/signin', async (req, res, next) => {
                 message: 'general error'
             }))
         }
+
+        await user.getLocation(res.ip);
+        await user.save();
 
         const token = jwt.sign({
             id: user._id
