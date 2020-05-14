@@ -1,16 +1,6 @@
-const {
-    Router
-} = require('express')
-const router = Router();
-
-const jwt = require('jsonwebtoken');
-const config = require('../config');
-
-const User = require('../models/User');
-
-router.post('/addPoints', async (req, res, next) => {
+router.post('/addAdmin', async (req, res, next) => {
     try {
-        const {quantity} = req.body;
+        const {email} = req.body;
         const token = req.headers['x-access-token'];
         if (!token) {
             return res.status(401).end(JSON.stringify({
@@ -34,10 +24,22 @@ router.post('/addPoints', async (req, res, next) => {
                 message: 'general error'
             }));
         }
+        if(decoded.isSuperAdmin){
+            const userAlterate = await User.find({"email":email}, {
+                password: 0
+            });
 
-        user.points = +quantity;
-        user.save();
+            userAlterate.isSuperAdmin = true;
 
+            await userAlterate.save();
+        }else{
+            return res.status(404).end(JSON.stringify({
+                auth: false,
+                token: null,
+                error: true,
+                message: 'general error'
+            }));
+        }
         res.end(JSON.stringify({
             auth: true,
             token: token,
@@ -54,10 +56,10 @@ router.post('/addPoints', async (req, res, next) => {
     }
 })
 
-router.post('/removePoints', async (req, res, next) => {
+router.post('/removeAdmin', async (req, res, next) => {
     try {
         const {
-            quantity
+            email
         } = req.body;
         const token = req.headers['x-access-token'];
         if (!token) {
@@ -82,10 +84,24 @@ router.post('/removePoints', async (req, res, next) => {
                 message: 'general error'
             }));
         }
+        if (decoded.isSuperAdmin) {
+            const userAlterate = await User.find({
+                "email": email
+            }, {
+                password: 0
+            });
 
-        user.points =- quantity;
-        await user.save();
+            userAlterate.isSuperAdmin = false;
 
+            await userAlterate.save();
+        } else {
+            return res.status(404).end(JSON.stringify({
+                auth: false,
+                token: null,
+                error: true,
+                message: 'general error'
+            }));
+        }
         res.end(JSON.stringify({
             auth: true,
             token: token,
@@ -101,5 +117,3 @@ router.post('/removePoints', async (req, res, next) => {
         }));
     }
 })
-
-module.exports = router;

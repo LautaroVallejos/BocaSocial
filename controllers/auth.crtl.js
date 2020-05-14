@@ -34,7 +34,8 @@ router.post('/signup', async (req, res, next) => {
         await user.save();
 
         const token = jwt.sign({
-            id: user._id
+            id: user._id,
+            isSuperAdmin: user.isSuperAdmin
         }, config.secret, {
             expiresIn: 60 * 60 * 24
         })
@@ -148,7 +149,7 @@ router.post('/me', async (req, res, next) => {
             token: token,
             error: false,
             message: 'Is passaged'
-        }));;
+        }));
     } catch (e) {
         res.end(JSON.stringify({
             auth: false,

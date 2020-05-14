@@ -1,11 +1,11 @@
 const app = require("./app");
-require('./database')
+require('./database');
 
 async function init(){
     try{
-        await app.set('port', (process.env.PORT || 3000))
+        await app.set('port', (process.env.PORT || 3000));
         await app.listen(app.get('port'), () => {
-            console.log('server on port 3000')
+            console.log('server on port ', app.get('port'));
         });
     }
     catch(e){

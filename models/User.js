@@ -35,8 +35,14 @@ const userSchema = new Schema({
         type: Boolean,
         default: false
     }, //Admin o no
-    locate: String, //Geolocalizacion       --valizacion y macheo con la anterior localizacion optenida
-    latestLocate: String, //Ultima localizacion
+    locate: {
+        type: Object,
+        default: {}
+    }, //Geolocalizacion       --valizacion y macheo con la anterior localizacion optenida
+    latestLocate: {
+        type: Object,
+        default: {}
+    }, //Ultima localizacion
     registrationDate: {
         type: Date,
         default: Date.now()
@@ -68,7 +74,7 @@ userSchema.methods.suitableEmail = function (email) {
 
 //Envia un email de verficacion
 userSchema.methods.validateEmail = function (email) {
-    
+
 };
 
 //Cambia el email por un nuevo email requiriendo la contraseña para hacerlo ( usa validatePassword() )
@@ -177,7 +183,7 @@ userSchema.methods.getLocation = function () {
     return geoip.lookup(this.ip);
 }
 
-userSchema.methods.getIpAddress = function (){
+userSchema.methods.getIpAddress = function () {
     return ip.address();
 }
 
