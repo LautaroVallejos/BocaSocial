@@ -9,7 +9,7 @@ app.use(express.urlencoded({
 app.use(require('./controllers/admin.crtl'));
 app.use(require('./controllers/auth.crtl'));
 app.use(require('./controllers/geo.crtl'));
-app.use(require('./controllers/group.crtl'));
+//app.use(require('./controllers/group.crtl'));
 app.use(require('./controllers/pay.crtl'));
 app.use(require('./controllers/points.ctrl'));
 //app.use(require('./controllers/'));
