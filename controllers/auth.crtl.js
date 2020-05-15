@@ -5,7 +5,7 @@ const router = Router();
 
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-const geoip = require("geoip-lite");
+const geoip = require('geoip-lite');
 
 const User = require('../models/User');
 
@@ -61,7 +61,7 @@ router.post('/signup', async (req, res, next) => {
             auth: false,
             token: null,
             error: true,
-            message: e
+            message: 'general error'
         }))
     }
 })
@@ -158,6 +158,7 @@ router.post('/me', async (req, res, next) => {
             message: 'Is passaged'
         }));
     } catch (e) {
+        console.log(e);
         res.end(JSON.stringify({
             auth: false,
             token: null,
