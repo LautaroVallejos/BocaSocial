@@ -60,7 +60,7 @@ router.post('/signup', async (req, res, next) => {
             auth: false,
             token: null,
             error: true,
-            message: 'general error'
+            message: e
         }))
     }
 })
