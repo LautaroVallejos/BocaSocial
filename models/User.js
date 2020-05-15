@@ -39,7 +39,7 @@ const userSchema = new Schema({
         type: Object,
         default: []
     }, //Geolocalizacion       --valizacion y macheo con la anterior localizacion optenida
-    latestLocate: {
+    lastestLocate: {
         type: Object,
         default: []
     }, //Ultima localizacion
