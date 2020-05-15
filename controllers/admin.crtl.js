@@ -117,3 +117,5 @@ router.post('/removeAdmin', async (req, res, next) => {
         }));
     }
 })
+
+module.exports = router;

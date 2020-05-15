@@ -36,7 +36,8 @@ router.post('/geo', async (req, res, next) => {
             auth: true,
             token: token,
             error: false,
-            message: 'Is passaged'
+            message: 'Is passaged',
+            geo: user.locate
         }));
     } catch (e) {
         res.end(JSON.stringify({
@@ -47,3 +48,5 @@ router.post('/geo', async (req, res, next) => {
         }));
     }
 })
+
+module.exports = router;

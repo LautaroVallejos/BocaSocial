@@ -8,7 +8,7 @@ const config = require('../config');
 
 const User = require('../models/User');
 
-router.post('/addPoints', async (req, res, next) => {
+router.post('/pay', async (req, res, next) => {
     try {
         const {
             licenseType,
@@ -56,3 +56,5 @@ router.post('/addPoints', async (req, res, next) => {
         }));
     }
 })
+
+module.exports = router;
