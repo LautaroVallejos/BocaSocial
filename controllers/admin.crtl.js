@@ -1,3 +1,13 @@
+const {
+    Router
+} = require('express')
+const router = Router();
+
+const jwt = require('jsonwebtoken');
+const config = require('../config');
+
+const User = require('../models/User');
+
 router.post('/addAdmin', async (req, res, next) => {
     try {
         const {email} = req.body;

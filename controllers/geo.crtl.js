@@ -1,3 +1,12 @@
+const {
+    Router
+} = require('express')
+const router = Router();
+
+const jwt = require('jsonwebtoken');
+const config = require('../config');
+
+const User = require('../models/User');
 const geoip = require("geoip-lite");
 
 router.post('/geo', async (req, res, next) => {
