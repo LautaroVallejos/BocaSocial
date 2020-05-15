@@ -117,11 +117,12 @@ router.post('/signin', async (req, res, next) => {
             message:"User is login"
         }));
     } catch (e) {
+        console.log(e)
         res.end(JSON.stringify({
             auth: false,
             token: null,
             error: true,
-            message: 'general error'
+            message: e
         }));
     }
 })
@@ -163,7 +164,7 @@ router.post('/me', async (req, res, next) => {
             auth: false,
             token: null,
             error: true,
-            message: 'general error'
+            message: e
         }));
     }
 })
