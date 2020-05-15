@@ -19,7 +19,6 @@ router.get('/', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
     try {
-         const token = req.headers['x-access-token'];
          const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress || req.socket.remoteAddress;
         const {
             username,
