@@ -37,7 +37,7 @@ const userSchema = new Schema({
     }, //Admin o no
     locate: {
         type: Object,
-        default: {}
+        default: []
     }, //Geolocalizacion       --valizacion y macheo con la anterior localizacion optenida
     latestLocate: {
         type: Array,

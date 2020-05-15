@@ -98,7 +98,9 @@ router.post('/signin', async (req, res, next) => {
         
         user.lastedLocate.push(user.locate);
         user.locate = await geoip.lookup(ip);
-        user.ip.push(ip);
+        if(user.ip[user.ip.length - 1] != ip){
+            user.ip.push(ip);
+        }
         await user.save();
 
         const token = jwt.sign({
