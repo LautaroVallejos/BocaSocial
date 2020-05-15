@@ -56,6 +56,10 @@ const userSchema = new Schema({
     ip: {
         type: Array,
         default: []
+    },
+    accountState: {
+        type: Boolean,
+        default: true
     }
 });
 
