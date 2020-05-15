@@ -19,6 +19,8 @@ router.get('/', async (req, res, next) => {
 
 router.post('/signup', async (req, res, next) => {
     try {
+         const token = req.headers['x-access-token'];
+         const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress || req.socket.remoteAddress;
         const {
             username,
             email,
@@ -30,7 +32,9 @@ router.post('/signup', async (req, res, next) => {
             password
         })
         user.password = await user.encryptPassword(user.password);
-        await user.getLocation(res.ip);
+        user.lastedLocate = user.locate;
+        user.locate = await geoip.lookup(ip);
+        user.ip.push(ip);
         await user.save();
 
         const token = jwt.sign({
@@ -39,6 +43,7 @@ router.post('/signup', async (req, res, next) => {
         }, config.secret, {
             expiresIn: 60 * 60 * 24
         })
+
 
         res.writeHead(200, {
             'x-access-token': token
@@ -70,6 +75,8 @@ router.post('/signin', async (req, res, next) => {
         const user = await User.findOne({
             email: email
         })
+         const token = req.headers['x-access-token'];
+         const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress || req.socket.remoteAddress;
         if (!user) {
             return res.status(401).res.end(JSON.stringify({
                 auth: false,
@@ -90,9 +97,9 @@ router.post('/signin', async (req, res, next) => {
             }))
         }
         
-        user.ip = await user.getIpAddress()
-        //user.latestLocate = user.locate;
-        //user.locate = await user.getLocation();
+        user.lastedLocate = user.locate;
+        user.locate = await geoip.lookup(ip);
+        user.ip.push(ip);
         await user.save();
 
         const token = jwt.sign({

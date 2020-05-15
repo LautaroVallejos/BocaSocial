@@ -40,8 +40,8 @@ const userSchema = new Schema({
         default: {}
     }, //Geolocalizacion       --valizacion y macheo con la anterior localizacion optenida
     latestLocate: {
-        type: Object,
-        default: {}
+        type: Array,
+        default: []
     }, //Ultima localizacion
     registrationDate: {
         type: Date,
@@ -53,7 +53,10 @@ const userSchema = new Schema({
         type: Number,
         default: 0
     }, //Cantidad de puntos que tiene el usuario --agregar y sacar puntos
-    ip: String
+    ip: {
+        type: Array,
+        default: []
+    }
 });
 
 //Encripado de la password
@@ -178,14 +181,6 @@ userSchema.methods.removeAdmin = function () {
     this.isSuperUser = false;
 }
 
-//Obtiene y guarda la lozalizacion passager req.ip :)
-userSchema.methods.getLocation = function () {
-    return geoip.lookup(this.ip);
-}
-
-userSchema.methods.getIpAddress = function () {
-    return ip.address();
-}
 
 //Agrega al usuario a un grupo y se le otorga el nivel en este grupo
 userSchema.methods.addGroup = function () {

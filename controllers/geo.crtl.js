@@ -36,9 +36,9 @@ router.post('/geo', async (req, res, next) => {
             }));
         }
 
-        user.lastedLocate = user.locate;
-        user.locate = geoip.lookup(ip);
-        user.ip = ip;
+        await user.lastedLocate.push(user.locate);
+        user.locate = await geoip.lookup(ip);
+        await user.ip.push(ip);
         user.save();
 
         res.end(JSON.stringify({
