@@ -74,8 +74,8 @@ router.post('/signin', async (req, res, next) => {
         const user = await User.findOne({
             email: email
         })
-         const token = req.headers['x-access-token'];
-         const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress || req.socket.remoteAddress;
+        
+        const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress || req.socket.remoteAddress;
         if (!user) {
             return res.status(401).res.end(JSON.stringify({
                 auth: false,
