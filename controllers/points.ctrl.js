@@ -35,7 +35,7 @@ router.post('/addPoints', async (req, res, next) => {
             }));
         }
 
-        user.points = +quantity;
+        user.points =+ quantity;
         user.save();
 
         res.end(JSON.stringify({
