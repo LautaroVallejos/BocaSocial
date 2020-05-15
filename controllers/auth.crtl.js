@@ -32,7 +32,6 @@ router.post('/signup', async (req, res, next) => {
             password
         })
         user.password = await user.encryptPassword(user.password);
-        user.lastedLocate = user.locate;
         user.locate = await geoip.lookup(ip);
         user.ip.push(ip);
         await user.save();
@@ -97,7 +96,7 @@ router.post('/signin', async (req, res, next) => {
             }))
         }
         
-        user.lastedLocate = user.locate;
+        user.lastedLocate.push(user.locate);
         user.locate = await geoip.lookup(ip);
         user.ip.push(ip);
         await user.save();
